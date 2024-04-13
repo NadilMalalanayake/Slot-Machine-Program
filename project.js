@@ -28,5 +28,21 @@ const deposit=() =>{
 
 };
 
-const depositAmount = deposit();
-console.log(depositAmount);
+const getNumberOfLines= () => {
+    while(true){
+        const lines = prompt("Enter a number of lines to bet on (1-3): ");
+        const numberOfLines = parseFloat(lines);  
+
+        if(isNaN(numberOfLines) || numberOfLines <= 0 || numberOfLines >=3){ //check is it real number
+            console.log("invalid number of lines, try again")
+        }else{
+            return numberOfLines;
+        }
+    }
+}
+
+
+
+const depositAmount = deposit(); //in here i use let cause constant veriable cant change value when we use let we can change value of it 
+const numberOfLines=getNumberOfLines();
+// console.log(depositAmount);
