@@ -33,7 +33,7 @@ const getNumberOfLines= () => {
         const lines = prompt("Enter a number of lines to bet on (1-3): ");
         const numberOfLines = parseFloat(lines);  
 
-        if(isNaN(numberOfLines) || numberOfLines <= 0 || numberOfLines >=3){ //check is it real number
+        if(isNaN(numberOfLines) || numberOfLines < 0 || numberOfLines > 4){ 
             console.log("invalid number of lines, try again")
         }else{
             return numberOfLines;
@@ -41,8 +41,25 @@ const getNumberOfLines= () => {
     }
 }
 
+const getBet = (balance,lines) => {  //to detemine maximum bet is
+    while(true){
+        const bet = prompt("Enter the bet per line: ");
+        const numberOfBet = parseFloat(bet);  
+
+        if(isNaN(numberOfBet) || numberOfBet <= 0 || numberOfBet > balance / lines){ //check is it real number
+            console.log("invalid bet, try again")
+        }else{
+            return numberOfBet;
+        }
+    }
+}
 
 
-const depositAmount = deposit(); //in here i use let cause constant veriable cant change value when we use let we can change value of it 
+let balance = deposit(); //in here i use let cause constant veriable cant change value when we use let we can change value of it 
 const numberOfLines=getNumberOfLines();
+const bet=getBet(balance,numberOfLines);
+
+
+
+
 // console.log(depositAmount);
