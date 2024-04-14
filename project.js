@@ -6,13 +6,33 @@
 // 6-give the user their winnings
 // 7-play agin
 
-const { parse } = require("path");
+const { count } = require("console");
+
+// const { parse } = require("path");
 
 // function deposit(){
 
 // }
 
 const prompt=require("prompt-sync")();
+const Rows= 3;
+const Cols= 3;
+const SYMBOLS_COUNT={
+    A: 2,    //real keys : Values
+    B: 4,
+    C: 6,
+    D: 8
+};
+
+const SYMBOLS_VALUES={
+    A: 5,   //multiply values
+    B: 4,
+    C: 3,
+    D: 2,
+};
+
+
+
 
 const deposit=() =>{
     while(true){
@@ -53,6 +73,23 @@ const getBet = (balance,lines) => {  //to detemine maximum bet is
         }
     }
 }
+
+const spin = () =>{
+    const symbols = [];
+    for (const [symbol,count] of Object.entries(SYMBOLS_COUNT)){
+        for(let i=0; i<count; i++){
+            symbols.push(symbol);   //push a new values to array
+        }
+    }
+    
+    const reels=[[],[],[]] //this nested array represent a column inside of spin
+
+
+
+    
+};
+
+spin();
 
 
 let balance = deposit(); //in here i use let cause constant veriable cant change value when we use let we can change value of it 
