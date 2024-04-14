@@ -76,26 +76,36 @@ const getBet = (balance,lines) => {  //to detemine maximum bet is
 
 const spin = () =>{
     const symbols = [];
-    for (const [symbol,count] of Object.entries(SYMBOLS_COUNT)){
+    for (const [symbol,count] of Object.entries(SYMBOLS_COUNT)){ 
         for(let i=0; i<count; i++){
             symbols.push(symbol);   //push a new values to array
         }
     }
+
     
     const reels=[[],[],[]] //this nested array represent a column inside of spin
+    for(let i=0;i<Cols;i++){ // this one for every one reels we have 
+        const reelSymbols =[...symbols]; //generate the available symbols
+        for(let j=0;j<Rows;j++){    //remove from them as we add symbols into each reel
+
+            const randomIndex=Math.floor(Math.random()*reelSymbols.length) //nearest number
+            const selectedSymbol= reelSymbols[randomIndex];
+            reels[i].push(selectedSymbol);
+            reelSymbols.splice(randomIndex, 1); //removed symbol we selected
+        }
+    }
+    return reels;
 
 
-
-    
 };
 
-spin();
+
 
 
 let balance = deposit(); //in here i use let cause constant veriable cant change value when we use let we can change value of it 
 const numberOfLines=getNumberOfLines();
 const bet=getBet(balance,numberOfLines);
-
+const reels=spin();
 
 
 
