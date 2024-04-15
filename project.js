@@ -15,8 +15,10 @@ const { count } = require("console");
 // }
 
 const prompt=require("prompt-sync")();
-const Rows= 3;
-const Cols= 3;
+
+const ROWS= 3;
+const COLS= 3;
+
 const SYMBOLS_COUNT={
     A: 2,    //real keys : Values
     B: 4,
@@ -84,9 +86,9 @@ const spin = () =>{
 
     
     const reels=[[],[],[]] //this nested array represent a column inside of spin
-    for(let i=0;i<Cols;i++){ // this one for every one reels we have 
+    for(let i=0;i<COLS;i++){ // this one for every one reels we have 
         const reelSymbols =[...symbols]; //generate the available symbols
-        for(let j=0;j<Rows;j++){    //remove from them as we add symbols into each reel
+        for(let j=0;j<ROWS;j++){    //remove from them as we add symbols into each reel
 
             const randomIndex=Math.floor(Math.random()*reelSymbols.length) //nearest number
             const selectedSymbol= reelSymbols[randomIndex];
@@ -99,13 +101,40 @@ const spin = () =>{
 
 };
 
+const transpose = (reels) =>{
+    const rows =[];
 
+    for(let i=0;i< ROWS;i++){
+        rows.push([]); //every single raw we have to represent array
+        for(let j=0;j<COLS;j++){
+            rows[i].push(reels[j][i])
+        }
+    }
+    return rows;
+}
+
+
+const printRows= (rows) => {
+    for(const row of rows){
+        let rowString = " ";
+        for(const [i,symbol] of rows.entries()){ // in here [i,symbol] 1,A / 2,B / 3,C
+            rowString += symbol
+            if (i != row.length -1){
+                rowString += " | "
+            }
+        }
+        console.log(rowString)
+    }
+};
 
 
 let balance = deposit(); //in here i use let cause constant veriable cant change value when we use let we can change value of it 
 const numberOfLines=getNumberOfLines();
 const bet=getBet(balance,numberOfLines);
 const reels=spin();
+const rows=transpose(reels);
+printRows(rows);
+
 
 
 
