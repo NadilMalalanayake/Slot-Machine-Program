@@ -7,6 +7,7 @@
 // 7-play agin
 
 const { count } = require("console");
+const { link } = require("fs");
 
 // const { parse } = require("path");
 
@@ -116,9 +117,9 @@ const transpose = (reels) =>{
 
 const printRows= (rows) => {
     for(const row of rows){
-        let rowString = " ";
-        for(const [i,symbol] of rows.entries()){ // in here [i,symbol] 1,A / 2,B / 3,C
-            rowString += symbol
+        let rowString = "";
+        for(const [i,symbol] of row.entries()){ // in here [i,symbol] 1,A / 2,B / 3,C
+            rowString += symbol;
             if (i != row.length -1){
                 rowString += " | "
             }
@@ -127,6 +128,28 @@ const printRows= (rows) => {
     }
 };
 
+const getWinings = (rows, bet ,lines) => {
+    let winnings = 0;
+
+    for(let row=0; row < lines; row++){ //checking rows with lines
+        const symbols = rows[row];
+        let allSame = true;
+
+        for(const symbol of symbols){ //loop every single symbols i have
+            if(symbol != symbols[0]){ //sybols i ghave same as my o index symbol all same
+                allSame = false;
+                break;
+            }
+        }
+
+        if(allSame){
+            winnings += bet * SYMBOLS_VALUES[symbols[0]] // bet muliply by 5 value symbols
+
+        }
+    }
+
+    return winnings;
+}
 
 let balance = deposit(); //in here i use let cause constant veriable cant change value when we use let we can change value of it 
 const numberOfLines=getNumberOfLines();
@@ -134,8 +157,6 @@ const bet=getBet(balance,numberOfLines);
 const reels=spin();
 const rows=transpose(reels);
 printRows(rows);
+const winnings = getWinings(rows, bet, numberOfLines)
+console.log("You won , $" + winnings.toString())
 
-
-
-
-// console.log(depositAmount);
